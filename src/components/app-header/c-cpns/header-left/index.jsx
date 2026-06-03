@@ -5,7 +5,10 @@ import IconLogo from '@/assets/svg/icon_logo.jsx'
 const HeaderLeft = memo(() => {
   return (
     <LeftWrapper>
-      <IconLogo />
+      <div className="logo">
+        <IconLogo />
+      </div>
+      <div>xxx</div>
     </LeftWrapper>
   )
 })
