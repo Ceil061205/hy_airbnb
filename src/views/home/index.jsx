@@ -1,28 +1,30 @@
-import React, { memo, useEffect, useState } from 'react'
-import hyRequest from '@/services'//引入封装好的请求模块
+import React, { memo, useEffect, } from 'react'
+import { HomeWrapper } from './style'
+import HomeBanner from './c-cpns/home-banner'
+import { fetchHomeDataAction } from '@/store/modules/home'
+import { useDispatch, useSelector } from 'react-redux'
+import SectionHeader from '@/components/section-header'
 
 const Home = memo(() => {
-  const [highScore, setHighScore] = useState({})
+   const dispatch = useDispatch()
+  // 从Redux拿数据
+  const { goodPriceInfo } = useSelector(state => state.home)
 
+  // 组件挂载发送请求
   useEffect(() => {
-    // 发送网络请求
-    hyRequest.get({ url: '/home/highScore' }).then(res => {
-      console.log(res);
-      setHighScore(res)
-    })
-  }, [])
-  
+    dispatch(fetchHomeDataAction())
+  }, [dispatch])
+
   return (
-    <div>
-      {/* <h2>{highScore.title}</h2>
-      <h4>{highScore.subtitle}</h4>
-      <ul>
-        {highScore.list?.map(item => {
-          return <li key={item.id}>{item.name}</li>
-        })
-        }
-      </ul> */}
-    </div>
+    <HomeWrapper>
+      <HomeBanner />
+      <div className="content">
+        {goodPriceInfo.list?.map(item => {
+          return <div key={item.id}>{item.name}</div>
+        })}
+        <SectionHeader title="高性价比" subtitle="高性价比房源，精选好住" />
+      </div>
+    </HomeWrapper>
   )
 })
 

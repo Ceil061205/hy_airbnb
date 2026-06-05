@@ -1,21 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getHomeGoodPriceData } from "@/services/modules/home"
 
+export const fetchHomeDataAction = () => {
+  return async (dispatch) => {
+    const res = await getHomeGoodPriceData()
+    dispatch(changGoodPriceInfoAction(res))
+  }
+}
 
 const homeSlice = createSlice({
   name: 'home',
   initialState: {
-    name: 'home',
-    age: 18
+    goodPriceInfo: {},
   },
   reducers: {
-    changeName(state, action) {
-      state.name = action.payload
+    changGoodPriceInfoAction(state, { payload }) {
+      state.goodPriceInfo = payload
     },
-    changeAge(state, action) {
-      state.age = action.payload
-    },
-  }
+  },
 })
 
-export const { changeName, changeAge } = homeSlice.actions
+export const { changGoodPriceInfoAction } = homeSlice.actions
 export default homeSlice.reducer

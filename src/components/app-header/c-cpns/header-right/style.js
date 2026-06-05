@@ -25,10 +25,10 @@ export const RightWrapper = styled.div`
 
   .profile {
     position: relative;
-    width: 50px;
+    width: 60px;
     height: 25px;
     border-radius: 25px;
-
+    
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -40,7 +40,8 @@ export const RightWrapper = styled.div`
     .panel {
       position: absolute;
       top: 55px;
-      width: 270px;
+      right: 0;
+      width: 200px;
       height: 240px;
       background-color: #fff;
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.18);
@@ -53,6 +54,10 @@ export const RightWrapper = styled.div`
           height: 40px;
           line-height: 40px;
           padding: 0 16px;
+
+          &:hover {
+            background-color: #f5f5f5;
+          }
         }
       }
 

@@ -1,9 +1,24 @@
-import React, { memo } from 'react'
+import React, { memo, useState, useEffect } from 'react'
 import { RightWrapper } from './style'
 import Icon_global from '@/assets/svg/icon_global'
 import Icon_menu from '@/assets/svg/icon_menu'
 
 const HeaderRight = memo(() => {
+  const [showPanel, setShowPanel] = useState(false)
+
+    // 副作用代码
+  useEffect(() => {
+    function windowHandleClick(e) {
+      setShowPanel(false)
+    }
+
+    window.addEventListener('click', windowHandleClick, true)
+    return () => {
+      window.removeEventListener('click', windowHandleClick, true)
+    }
+  }, [])
+
+
   return (
     <RightWrapper>
       <div className="btns">
@@ -12,19 +27,21 @@ const HeaderRight = memo(() => {
         <span className='btn'><Icon_global /></span>
       </div>
 
-      <div className="profile">
+      <div className="profile" onClick={e => setShowPanel(!showPanel)}>
         <Icon_menu /> <Icon_menu />
-        <div className="panel">
-          <div className='top'>
-            <div className='item register'>注册</div>
-            <div className='item login'>登录</div>
+        { showPanel && (
+          <div className="panel">
+            <div className='top'>
+              <div className='item register'>注册</div>
+              <div className='item login'>登录</div>
+            </div>
+            <div className='bottom'>
+              <div className='item info'>房源信息</div>
+              <div className='item experience'>开展体验</div>
+              <div className='item help'>帮助</div>
+            </div>
           </div>
-          <div className='bottom'>
-            <div className='item info'>房源信息</div>
-            <div className='item experience'>开展体验</div>
-            <div className='item help'>帮助</div>
-          </div>
-        </div>
+      )}
       </div>
     </RightWrapper>
   )
